@@ -1,6 +1,10 @@
 const inquirer = require('inquirer');
 
-var chooseEmployee = () => {
+var chooseEmployee = (employeeData) => {
+
+    if (!employeeData) {
+        employeeData= [];
+    }
 
     inquirer.prompt([
         {
@@ -15,20 +19,20 @@ var chooseEmployee = () => {
         var employee = answer.employee;
         
         if (employee === 'Engineer') {
-            promptEngineer(employee);
+            promptEngineer(employee, employeeData);
         }
         if (employee === 'Manager') {
-            promptManager(employee);
+            promptManager(employee, employeeData);
         }
         if (employee === 'Intern') {
-            promptIntern(employee);
+            promptIntern(employee, employeeData);
         }
     });       
 }
 
 chooseEmployee();
 
-var promptManager = (employee) => {
+var promptManager = (employee, employeeData) => {
 
     inquirer.prompt([
         {
@@ -49,12 +53,12 @@ var promptManager = (employee) => {
     .then(answer => {
         if (answer.officeNumber) {
             var specificInfo = answer.officeNumber;
-            promptEmployee(employee, specificInfo);
+            promptEmployee(employee, specificInfo, employeeData);
         }
     });
 }
 
-var promptEngineer = (employee) => {
+var promptEngineer = (employee, employeeData) => {
 
     inquirer.prompt([
         {
@@ -74,12 +78,12 @@ var promptEngineer = (employee) => {
     .then(answer => {
         if (answer.GitHub) {
             var specificInfo = answer.GitHub;
-            promptEmployee(employee, specificInfo);
+            promptEmployee(employee, specificInfo, employeeData);
         }
     });
 }
 
-var promptIntern = (employee) => {
+var promptIntern = (employee, employeeData) => {
 
     inquirer.prompt([
         {
@@ -100,12 +104,12 @@ var promptIntern = (employee) => {
     .then(answer => {
         if (answer.school) {
             var specificInfo = answer.school;
-            promptEmployee(employee, specificInfo);
+            promptEmployee(employee, specificInfo, employeeData);
         }
     });
 }
 
-var promptEmployee = (employee, specificInfo) => {
+var promptEmployee = (employee, specificInfo, employeeData) => {
 
     inquirer.prompt([
         {
@@ -159,13 +163,21 @@ var promptEmployee = (employee, specificInfo) => {
     ])
     .then(
         answer => {
+
             var allInfo = {
                 employee: employee,
                 specificInfo: specificInfo,
                 name: answer.name,
                 id: answer.id,
                 email: answer.email,
-                confirmAddProject: answer.confirmAddProject
+                confirm: answer.confirmAddProject
+            }
+
+            employeeData.push(allInfo);
+            console.log(employeeData);
+
+            if (allInfo.confirm === true) {
+                chooseEmployee(employeeData);
             }
         }
     );
