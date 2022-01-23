@@ -1,5 +1,36 @@
 const inquirer = require('inquirer');
 
+var chooseEmployee = () => {
+
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'manager',
+            message: 'Will these inputs be for the manager?',
+            choices: ['Yes', 'No']
+        },
+    ])
+    .then(answer => {
+        console.log(answer.manager);
+        if (answer.manager === 'Yes') {
+            promptManager();
+        }
+        else {
+            inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'employee',
+                    message: 'Choose an employee',
+                    choices: ['Employee', 'Engineer', 'Intern']
+                }
+            ])
+        }
+    })
+
+}
+
+chooseEmployee();
+
 var promptEmployee = () => {
 
     inquirer.prompt([
@@ -54,17 +85,24 @@ var promptManager = () => {
         {
             type: 'input',
             name: 'officeNumber',
-            message: 'Enter your office number of the manager:',
+            message: 'Enter the office number of the manager:',
             validate: officeInput => {
                 if (officeInput) {
                     return true;
                 }
                 else {
                     console.log('You need to enter the office number');
+                    return false;
                 }
             }
         }
-    ]);
+    ])
+    .then(answer => {
+        console.log(answer.officeNumber);
+        if (answer.officeNumber) {
+            promptEmployee();
+        }
+    });
 }
 
 var promptEngineer = () => {
