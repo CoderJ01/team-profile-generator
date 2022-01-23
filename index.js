@@ -5,40 +5,107 @@ var chooseEmployee = () => {
     inquirer.prompt([
         {
             type: 'list',
-            name: 'manager',
-            message: 'Will these inputs be for the manager?',
-            choices: ['Yes', 'No']
+            name: 'employee',
+            message: 'Choose an employee',
+            choices: ['Manager','Engineer', 'Intern']
         },
     ])
     .then(answer => {
-        console.log(answer.manager);
-        if (answer.manager === 'Yes') {
-            promptManager();
+        
+        var employee = answer.employee;
+        
+        if (employee === 'Engineer') {
+            promptEngineer(employee);
         }
-        else {
-            inquirer.prompt([
-                {
-                    type: 'list',
-                    name: 'employee',
-                    message: 'Choose an employee',
-                    choices: ['Engineer', 'Intern']
-                }
-            ])
-            .then(answer => {
-                if (answer.employee === 'Engineer') {
-                    promptEngineer();
-                }
-                else {
-                    promptIntern();
-                }
-            });
+        if (employee === 'Manager') {
+            promptManager(employee);
         }
-    })
+        if (employee === 'Intern') {
+            promptIntern(employee);
+        }
+    });       
 }
 
 chooseEmployee();
 
-var promptEmployee = () => {
+var promptManager = (employee) => {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: 'Enter the office number of the manager:',
+            validate: officeInput => {
+                if (officeInput) {
+                    return true;
+                }
+                else {
+                    console.log('You need to enter the office number');
+                    return false;
+                }
+            }
+        }
+    ])
+    .then(answer => {
+        if (answer.officeNumber) {
+            var specificInfo = answer.officeNumber;
+            promptEmployee(employee, specificInfo);
+        }
+    });
+}
+
+var promptEngineer = (employee) => {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'GitHub',
+            message: 'Enter your GitHub username:',
+            validate: githubInput => {
+                if (githubInput) {
+                    return true;
+                }
+                else {
+                    console.log('You need to enter your username');
+                }
+            }
+        }
+    ])
+    .then(answer => {
+        if (answer.GitHub) {
+            var specificInfo = answer.GitHub;
+            promptEmployee(employee, specificInfo);
+        }
+    });
+}
+
+var promptIntern = (employee) => {
+
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'school',
+            message: 'Enter the name of your school:',
+            validate: schoolInput => {
+                if (schoolInput) {
+                    return true;
+                }
+                else {
+                    console.log('You need to enter the name of your school');
+                    return false;
+                }
+            }
+        }
+    ])
+    .then(answer => {
+        if (answer.school) {
+            var specificInfo = answer.school;
+            promptEmployee(employee, specificInfo);
+        }
+    });
+}
+
+var promptEmployee = (employee, specificInfo) => {
 
     inquirer.prompt([
         {
@@ -82,80 +149,26 @@ var promptEmployee = () => {
                     return false;
                 }
             }
-        }
-    ]);
-}
-
-var promptManager = () => {
-
-    inquirer.prompt([
+        },
         {
-            type: 'input',
-            name: 'officeNumber',
-            message: 'Enter the office number of the manager:',
-            validate: officeInput => {
-                if (officeInput) {
-                    return true;
-                }
-                else {
-                    console.log('You need to enter the office number');
-                    return false;
-                }
+            type: 'confirm',
+            name: 'confirmAddProject',
+            message: 'Would you like to add another employee?',
+            default: false
+        }       
+    ])
+    .then(
+        answer => {
+            var allInfo = {
+                employee: employee,
+                specificInfo: specificInfo,
+                name: answer.name,
+                id: answer.id,
+                email: answer.email,
+                confirmAddProject: answer.confirmAddProject
             }
         }
-    ])
-    .then(answer => {
-        if (answer.officeNumber) {
-            promptEmployee();
-        }
-    });
+    );
 }
 
-var promptEngineer = () => {
 
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'GitHub',
-            message: 'Enter your GitHub username:',
-            validate: githubInput => {
-                if (githubInput) {
-                    return true;
-                }
-                else {
-                    console.log('You need to enter your username');
-                }
-            }
-        }
-    ])
-    .then(answer => {
-        if (answer.GitHub) {
-            promptEmployee();
-        }
-    });
-}
-
-var promptIntern = () => {
-
-    inquirer.prompt([
-        {
-            type: 'input',
-            name: 'school',
-            message: 'Enter the name of your school:',
-            validate: schoolInput => {
-                if (schoolInput) {
-                    return true;
-                }
-                else {
-                    console.log('You need to enter the name of your school');
-                    return false;
-                }
-            }
-        }
-    ])
-    .then(answer => {
-        if (answer.school) {
-            promptEmployee();
-        }
-    });
-}
