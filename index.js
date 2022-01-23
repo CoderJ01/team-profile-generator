@@ -132,7 +132,13 @@ var promptEmployee = (employee, specificInfo, employeeData) => {
             message: 'Enter your employee ID number:',
             validate: idInput => {
                 if (idInput) {
-                    return true;
+                    if (!/^[0-9]+$/.test(idInput)) {
+                        console.log(' The ID needs to be a numerical value');
+                        return false
+                    }
+                    else {
+                        return true;
+                    }
                 }
                 else {
                     console.log('You need to enter an ID number');
@@ -174,7 +180,6 @@ var promptEmployee = (employee, specificInfo, employeeData) => {
             }
 
             employeeData.push(allInfo);
-            console.log(employeeData[0]);
 
             if (allInfo.confirm === true) {
                 chooseEmployee(employeeData);
