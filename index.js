@@ -174,7 +174,7 @@ var promptEmployee = (employee, specificInfo, employeeData) => {
             }
 
             employeeData.push(allInfo);
-            console.log(employeeData);
+            console.log(employeeData[0]);
 
             if (allInfo.confirm === true) {
                 chooseEmployee(employeeData);
