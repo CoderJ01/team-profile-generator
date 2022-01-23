@@ -21,12 +21,19 @@ var chooseEmployee = () => {
                     type: 'list',
                     name: 'employee',
                     message: 'Choose an employee',
-                    choices: ['Employee', 'Engineer', 'Intern']
+                    choices: ['Engineer', 'Intern']
                 }
             ])
+            .then(answer => {
+                if (answer.employee === 'Engineer') {
+                    promptEngineer();
+                }
+                else {
+                    promptIntern();
+                }
+            });
         }
     })
-
 }
 
 chooseEmployee();
@@ -98,7 +105,6 @@ var promptManager = () => {
         }
     ])
     .then(answer => {
-        console.log(answer.officeNumber);
         if (answer.officeNumber) {
             promptEmployee();
         }
@@ -121,7 +127,12 @@ var promptEngineer = () => {
                 }
             }
         }
-    ]);
+    ])
+    .then(answer => {
+        if (answer.GitHub) {
+            promptEmployee();
+        }
+    });
 }
 
 var promptIntern = () => {
@@ -141,5 +152,10 @@ var promptIntern = () => {
                 }
             }
         }
-    ]);
+    ])
+    .then(answer => {
+        if (answer.school) {
+            promptEmployee();
+        }
+    });
 }
