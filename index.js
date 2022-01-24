@@ -1,4 +1,5 @@
 const inquirer = require('inquirer');
+const Employee = require('../lib/Employee')
 
 var chooseEmployee = (employeeData) => {
 
@@ -41,7 +42,13 @@ var promptManager = (employee, employeeData) => {
             message: 'Enter the office number of the manager:',
             validate: officeInput => {
                 if (officeInput) {
-                    return true;
+                    if (!/^[0-9]+$/.test(officeInput)) {
+                        console.log(' The office number needs to be a numerical value');
+                        return false
+                    }
+                    else {
+                        return true;
+                    }
                 }
                 else {
                     console.log('You need to enter the office number');
@@ -180,6 +187,7 @@ var promptEmployee = (employee, specificInfo, employeeData) => {
             }
 
             employeeData.push(allInfo);
+            console.log(employeeData);
 
             if (allInfo.confirm === true) {
                 chooseEmployee(employeeData);
