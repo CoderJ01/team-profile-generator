@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
-//const Employee = require('../lib/Employee')
+const Employee = require('./lib/Employee');
+// const Employee = require('../lib/Employee');
 
 var chooseEmployee = (employeeData) => {
 
@@ -59,8 +60,8 @@ var promptManager = (employee, employeeData) => {
     ])
     .then(answer => {
         if (answer.officeNumber) {
-            var specificInfo = parseInt(answer.officeNumber);
-            promptEmployee(employee, specificInfo, employeeData);
+            var officeNum = parseInt(answer.officeNumber);
+            promptEmployee(employee, officeNum, employeeData);
         }
     });
 }
@@ -84,8 +85,9 @@ var promptEngineer = (employee, employeeData) => {
     ])
     .then(answer => {
         if (answer.GitHub) {
-            var specificInfo = answer.GitHub;
-            promptEmployee(employee, specificInfo, employeeData);
+            var gitHub = answer.GitHub;
+            // const employee = new Engineer(name, id, email, gitHub);
+            promptEmployee(employee, gitHub, employeeData);
         }
     });
 }
@@ -110,13 +112,13 @@ var promptIntern = (employee, employeeData) => {
     ])
     .then(answer => {
         if (answer.school) {
-            var specificInfo = answer.school;
-            promptEmployee(employee, specificInfo, employeeData);
+            var schoolName = answer.school;
+            promptEmployee(employee, schoolName, employeeData);
         }
     });
 }
 
-var promptEmployee = (employee, specificInfo, employeeData) => {
+var promptEmployee = (employee, officeNum, gitHub, schoolName, employeeData) => {
 
     inquirer.prompt([
         {
@@ -177,14 +179,14 @@ var promptEmployee = (employee, specificInfo, employeeData) => {
     .then(
         answer => {
            
-            var allInfo = {
-                employee: employee,
-                specificInfo: specificInfo,
-                name: answer.name.substring(0, 1).toUpperCase() + answer.name.substring(1),
-                id: parseInt(answer.id),
-                email: answer.email.toLowerCase(),
-                confirm: answer.confirmAddProject
-            }
+            // var allInfo = {
+            //     employee: employee,
+            //     specificInfo: specificInfo,
+            //     name: answer.name.substring(0, 1).toUpperCase() + answer.name.substring(1),
+            //     id: parseInt(answer.id),
+            //     email: answer.email.toLowerCase(),
+            //     confirm: answer.confirmAddProject
+            // }
 
             employeeData.push(allInfo);
             console.log(employeeData);

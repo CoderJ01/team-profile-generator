@@ -1,1 +1,3 @@
 https://courses.bootcampspot.com/courses/1079/pages/10-dot-1-6-write-a-function-that-passes-potion-creation?module_item_id=362227
+
+https://courses.bootcampspot.com/courses/1079/pages/10-dot-4-6-add-a-checkendofbattle-method?module_item_id=362409
