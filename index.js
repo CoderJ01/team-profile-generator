@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const Employee = require('../lib/Employee')
+//const Employee = require('../lib/Employee')
 
 var chooseEmployee = (employeeData) => {
 
@@ -59,7 +59,7 @@ var promptManager = (employee, employeeData) => {
     ])
     .then(answer => {
         if (answer.officeNumber) {
-            var specificInfo = answer.officeNumber;
+            var specificInfo = parseInt(answer.officeNumber);
             promptEmployee(employee, specificInfo, employeeData);
         }
     });
@@ -176,13 +176,13 @@ var promptEmployee = (employee, specificInfo, employeeData) => {
     ])
     .then(
         answer => {
-
+           
             var allInfo = {
                 employee: employee,
                 specificInfo: specificInfo,
-                name: answer.name,
-                id: answer.id,
-                email: answer.email,
+                name: answer.name.substring(0, 1).toUpperCase() + answer.name.substring(1),
+                id: parseInt(answer.id),
+                email: answer.email.toLowerCase(),
                 confirm: answer.confirmAddProject
             }
 
