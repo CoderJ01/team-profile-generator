@@ -3,10 +3,19 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 
-var chooseEmployee = (employeeData) => {
+var chooseEmployee = (managerData, engineerData, internData) => {
 
-    if (!employeeData) {
-        employeeData= [];
+    // if (!employeeData) {
+    //     employeeData= [];
+    // }
+    if (!managerData) {
+        managerData= [];
+    }
+    if (!engineerData) {
+        engineerData= [];
+    }
+    if (!internData) {
+        internData= [];
     }
 
     inquirer.prompt([
@@ -22,20 +31,20 @@ var chooseEmployee = (employeeData) => {
         var employee = answer.employee;
         
         if (employee === 'Manager') {
-            promptManager(employee, employeeData);
+            promptManager(employee, managerData, engineerData, internData);
         }
         if (employee === 'Engineer') {
-            promptEngineer(employee, employeeData);
+            promptEngineer(employee, managerData, engineerData, internData);
         }
         if (employee === 'Intern') {
-            promptIntern(employee, employeeData);
+            promptIntern(employee, managerData, engineerData, internData);
         }
     });       
 }
 
 chooseEmployee();
 
-var promptManager = (employee, employeeData) => {
+var promptManager = (employee, managerData, engineerData, internData) => {
 
     inquirer.prompt([
         {
@@ -63,12 +72,12 @@ var promptManager = (employee, employeeData) => {
         if (answer.officeNumber) {
             var officeNum = parseInt(answer.officeNumber);
             var job = officeNum;
-            promptEmployee(employee, employeeData, job);
+            promptEmployee(employee, managerData, engineerData, internData, job);
         }
     });
 }
 
-var promptEngineer = (employee, employeeData) => {
+var promptEngineer = (employee, managerData, engineerData, internData) => {
 
     inquirer.prompt([
         {
@@ -89,12 +98,12 @@ var promptEngineer = (employee, employeeData) => {
         if (answer.GitHub) {
             var gitHub = answer.GitHub;
             var job = gitHub;
-            promptEmployee(employee, employeeData, job);
+            promptEmployee(employee, managerData, engineerData, internData, job);
         }
     });
 }
 
-var promptIntern = (employee, employeeData) => {
+var promptIntern = (employee, managerData, engineerData, internData) => {
 
     inquirer.prompt([
         {
@@ -116,12 +125,12 @@ var promptIntern = (employee, employeeData) => {
         if (answer.school) {
             var school = answer.school;
             var job = school;
-            promptEmployee(employee, employeeData, job);
+            promptEmployee(employee, managerData, engineerData, internData, job);
         }
     });
 }
 
-var promptEmployee = (employee, employeeData, job) => {
+var promptEmployee = (employee, managerData, engineerData, internData, job) => {
 
     inquirer.prompt([
         {
@@ -201,25 +210,26 @@ var promptEmployee = (employee, employeeData, job) => {
             const intern = new Intern(name, id, email, school);
 
             if (employee === 'Manager') {
-                employeeData.push(manager);
+                managerData.push(manager);
             }
             if (employee === 'Engineer') {
-                employeeData.push(engineer); 
+                engineerData.push(engineer); 
             }
             if (employee === 'Intern') {
-                employeeData.push(intern);
+                internData.push(intern);
             }
 
             if (answer.confirmAddProject === true) {
-                chooseEmployee(employeeData);
+                chooseEmployee(managerData, engineerData, internData);
             }
 
-            var accessArray = employeeData;
-
-            console.log(accessArray[1]);
-        }
+            console.log(managerData);
+            console.log(engineerData);
+            console.log(internData);
+        }     
     );
 }
+
 
 
 
