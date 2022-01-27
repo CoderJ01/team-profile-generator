@@ -1,5 +1,4 @@
 const inquirer = require('inquirer');
-const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
@@ -215,9 +214,9 @@ var promptEmployee = (employee, employeeData, job) => {
                 chooseEmployee(employeeData);
             }
 
-            // if(employeeData.enginner[2]) {
-            //     console.log(employeeData.enginner[2]);
-            // }
+            var accessArray = employeeData;
+
+            console.log(accessArray[1]);
         }
     );
 }
