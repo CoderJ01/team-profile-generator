@@ -5,19 +5,16 @@ const Intern = require('./lib/Intern');
 
 var chooseEmployee = (managerData, engineerData, internData) => {
 
-    // if (!employeeData) {
-    //     employeeData= [];
-    // }
     if (!managerData) {
-        managerData= [];
+        managerData = [];
     }
     if (!engineerData) {
-        engineerData= [];
+        engineerData = [];
     }
     if (!internData) {
-        internData= [];
+        internData = [];
     }
-
+   
     inquirer.prompt([
         {
             type: 'list',
@@ -221,6 +218,9 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
 
             if (answer.confirmAddProject === true) {
                 chooseEmployee(managerData, engineerData, internData);
+            }
+            else {
+                console.log(managerData[1].name);
             }
 
             console.log(managerData);
