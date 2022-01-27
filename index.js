@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 const Employee = require('./lib/Employee');
-// const Employee = require('../lib/Employee');
+const Manager = require('./lib/Manager');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 var chooseEmployee = (employeeData) => {
 
@@ -20,11 +22,11 @@ var chooseEmployee = (employeeData) => {
         
         var employee = answer.employee;
         
-        if (employee === 'Engineer') {
-            promptEngineer(employee, employeeData);
-        }
         if (employee === 'Manager') {
             promptManager(employee, employeeData);
+        }
+        if (employee === 'Engineer') {
+            promptEngineer(employee, employeeData);
         }
         if (employee === 'Intern') {
             promptIntern(employee, employeeData);
@@ -61,7 +63,8 @@ var promptManager = (employee, employeeData) => {
     .then(answer => {
         if (answer.officeNumber) {
             var officeNum = parseInt(answer.officeNumber);
-            promptEmployee(employee, officeNum, employeeData);
+            var job = officeNum;
+            promptEmployee(employee, employeeData, job);
         }
     });
 }
@@ -86,8 +89,8 @@ var promptEngineer = (employee, employeeData) => {
     .then(answer => {
         if (answer.GitHub) {
             var gitHub = answer.GitHub;
-            // const employee = new Engineer(name, id, email, gitHub);
-            promptEmployee(employee, gitHub, employeeData);
+            var job = gitHub;
+            promptEmployee(employee, employeeData, job);
         }
     });
 }
@@ -112,13 +115,14 @@ var promptIntern = (employee, employeeData) => {
     ])
     .then(answer => {
         if (answer.school) {
-            var schoolName = answer.school;
-            promptEmployee(employee, schoolName, employeeData);
+            var school = answer.school;
+            var job = school;
+            promptEmployee(employee, employeeData, job);
         }
     });
 }
 
-var promptEmployee = (employee, officeNum, gitHub, schoolName, employeeData) => {
+var promptEmployee = (employee, employeeData, job) => {
 
     inquirer.prompt([
         {
@@ -178,24 +182,47 @@ var promptEmployee = (employee, officeNum, gitHub, schoolName, employeeData) => 
     ])
     .then(
         answer => {
-           
-            // var allInfo = {
-            //     employee: employee,
-            //     specificInfo: specificInfo,
-            //     name: answer.name.substring(0, 1).toUpperCase() + answer.name.substring(1),
-            //     id: parseInt(answer.id),
-            //     email: answer.email.toLowerCase(),
-            //     confirm: answer.confirmAddProject
-            // }
 
-            employeeData.push(allInfo);
-            console.log(employeeData);
+            var name = answer.name.substring(0, 1).toUpperCase() + answer.name.substring(1);
+            var id = parseInt(answer.id);
+            var email = answer.email.toLowerCase();
 
-            if (allInfo.confirm === true) {
+            if (employee === 'Manager') {
+                var officeNum = job;
+            }
+            if (employee === 'Engineer') {
+                var gitHub = job;
+            }
+            if (employee === 'Intern') {
+                var school = job;
+            }
+  
+            const manager = new Manager(name, id, email, officeNum);
+            const engineer = new Engineer(name, id, email, gitHub);
+            const intern = new Intern(name, id, email, school);
+
+            if (employee === 'Manager') {
+                employeeData.push(manager);
+            }
+            if (employee === 'Engineer') {
+                employeeData.push(engineer); 
+            }
+            if (employee === 'Intern') {
+                employeeData.push(intern);
+            }
+
+            if (answer.confirmAddProject === true) {
                 chooseEmployee(employeeData);
             }
+
+            // if(employeeData.enginner[2]) {
+            //     console.log(employeeData.enginner[2]);
+            // }
         }
     );
 }
+
+
+
 
 
