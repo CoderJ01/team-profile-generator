@@ -313,7 +313,7 @@ const engineerHTML = (engineerData) => {
                             <text>Email: <span class="inputs"><a href="mailto: ${engineerData[i].email}">${engineerData[i].email}</a></span></text>
                         </div>
                         <div class="wild-card">
-                            <text>GitHub: <span class="inputs">${engineerData[i].gitHub}</span></text>
+                            <text>GitHub: <span class="inputs"><a href="https://github.com/${engineerData[i].gitHub}">${engineerData[i].gitHub}<a></span></text>
                         </div>
                     </div>
                 </div>
