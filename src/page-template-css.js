@@ -79,6 +79,4 @@ const mainCSS = () => {
     }`;
 }
 
-console.log(mainCSS());
-
 module.exports = mainCSS;
