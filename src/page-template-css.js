@@ -10,8 +10,9 @@ const mainCSS = () => {
     }
     header h1 {
         color: rgb(255, 255, 255);
-        text-align: center;
-        margin-bottom: -200px;
+        position: absolute;
+        margin-left: 623px;
+        margin-top: 30px; 
     }
     main {
         height: 530px;
@@ -42,6 +43,7 @@ const mainCSS = () => {
     }
     .basic h2, .basic h3 {
         color: rgb(255, 255, 255);
+        text-align: center;
     }
     .basic h3 {
         margin-top: 5px;
