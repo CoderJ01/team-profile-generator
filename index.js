@@ -4,7 +4,7 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
 // const mainHTML = require('./src/page-template-html');
-// const mainCSS = require('./src/page-template-css');
+const mainCSS = require('./src/page-template-css');
 
 var chooseEmployee = (managerData, engineerData, internData) => {
 
@@ -239,9 +239,10 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
             }
             else {
 
-                managerHTML(managerData);
-                engineerHTML(engineerData);
-                internHTML(internData);
+                // managerHTML(managerData);
+                // engineerHTML(engineerData);
+                // internHTML(internData);
+
                 // const displayHTML = mainHTML();
                 // return managerData;
 
@@ -249,23 +250,23 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
                 // console.log(managerData);
                 // console.log('managerData.length: ' + managerData.length);
 
-                // fs.writeFile('./dist/index.html', displayHTML, err => {
-                //     if (err) {
-                //         throw new Error(err);
-                //     }
-                //     else {
-                //         // const displayCSS = mainCSS();
+                fs.writeFile('./dist/index.html', mainHTML(managerData, engineerData, internData), err => {
+                    if (err) {
+                        throw new Error(err);
+                    }
+                    else {
+                        const displayCSS = mainCSS();
 
-                //         // fs.writeFile('./dist/assets/css/style.css', displayCSS, err => {
-                //         //     if (err) {
-                //         //         throw new Error(err);
-                //         //     } 
-                //         //     else {   
-                //         //         console.log('Page created! Check out index.html in this directory to see it!');
-                //         //     }
-                //         // });
-                //     }
-                // });
+                        fs.writeFile('./dist/assets/css/style.css', displayCSS, err => {
+                            if (err) {
+                                throw new Error(err);
+                            } 
+                            else {   
+                                console.log('Page created! Check out index.html in this directory to see it!');
+                            }
+                        });
+                    }
+                });
             }
         }     
     );
@@ -367,14 +368,14 @@ const internHTML = (internData) => {
     return internDisplay;
 }
 
-const mainHTML = () => {
+const mainHTML = (managerData, engineerData, internData) => {
 
     return `<!DOCTYPE html>
     <html lang="en">
         <head>
             <meta charset="UTF-8" />
             <title>Team Profile</title>
-            <link rel="stylesheet" href=".assets/css/style.css">
+            <link rel="stylesheet" href="./assets/css/style.css">
         </head>
         <body>
             <header>
@@ -382,9 +383,9 @@ const mainHTML = () => {
             </header>
             <main>
                 <div class="wrapper">
-                ${managerHTML()}
-                ${engineerHTML()}
-                ${internHTML()}
+                ${managerHTML(managerData)}
+                ${engineerHTML(engineerData)}
+                ${internHTML(internData)}
                 </div>
             </main>
         </body>
