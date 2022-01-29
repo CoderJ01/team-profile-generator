@@ -7,27 +7,25 @@ const managerHTML = (managerDisplay) => {
         <div class="role">
             <div class="role-display">
                 <div class="basic">
-                    <h2>Name</h2>
-                    <h3>Manager</h3>
+                    <h2>${mangerData[i].name}</h2>
+                    <h3>${managerData[i].role}</h3>
                 </div>
                 <div class="specific">
                     <div class="specific-wrapper">
                         <div class="id">
-                            <text>ID: <span class="input-num">1</span></text></text>
+                            <text>ID: <span class="input-num">${managerData[i].id}</span></text></text>
                         </div>
                         <div class="email">
-                            <text>Email: <span class="inputs"><a href="mailto: buildingguy@sbcglobal.net">buildingguy@sbcglobal.net</a></span></text>
+                            <text>Email: <span class="inputs"><a href="mailto: ${managerData[i].email}">${managerData[i].email}</a></span></text>
                         </div>
                         <div class="wild-card">
-                            <text>Office Number: <span class="input-num">1</span></text>
+                            <text>Office Number: <span class="input-num">${managerData[i].officeNum}</span></text>
                         </div>
                     </div>
                 </div>
             </div>
         </div>`;
     }
-
-    console.log(managerDisplay);
 
     return managerDisplay;
 }
@@ -41,19 +39,19 @@ const engineerHTML = (engineerDisplay) => {
         <div class="role">
             <div class="role-display">
                 <div class="basic">
-                    <h2>Name</h2>
-                    <h3>Engineer</h3>
+                    <h2>${engineerData[i].name}</h2>
+                    <h3>${engineerData[i].role}</h3>
                 </div>
                 <div class="specific">
                     <div class="specific-wrapper">
                         <div class="id">
-                            <text>ID: <span class="input-num">2</span></text></text>
+                            <text>ID: <span class="input-num">${engineerData[i].id}</span></text></text>
                         </div>
                         <div class="email">
-                            <text>Email: <span class="inputs"><a href="mailto: buildingguy@sbcglobal.net">buildingguy@sbcglobal.net</a></span></text>
+                            <text>Email: <span class="inputs"><a href="mailto: ${engineerData[i].email}">${engineerData[i].email}</a></span></text>
                         </div>
                         <div class="wild-card">
-                            <text>GitHub: <span class="inputs">coderJ01</span></text>
+                            <text>GitHub: <span class="inputs">${engineerData[i].gitHub}</span></text>
                         </div>
                     </div>
                 </div>
@@ -73,19 +71,19 @@ const internHTML = (internDisplay) => {
         <div class="role">
             <div class="role-display">
                 <div class="basic">
-                    <h2>Name</h2>
-                    <h3>Intern</h3>
+                    <h2>${internData[i].name}</h2>
+                    <h3>${internData[i].role}</h3>
                 </div>
                 <div class="specific">
                     <div class="specific-wrapper">
                         <div class="id">
-                            <text>ID: <span class="input-num">3</span></text></text>
+                            <text>ID: <span class="input-num">${internData[i].id}</span></text></text>
                         </div>
                         <div class="email">
-                            <text>Email: <span class="inputs"><a href="mailto: buildingguy@sbcglobal.net">buildingguy@sbcglobal.net</a></span></text>
+                            <text>Email: <span class="inputs"><a href="mailto: ${internData[i].email}">${internData[i].email}</a></span></text>
                         </div>
                         <div class="wild-card">
-                            <text>School: <span class="inputs">University of Irvine</span></text>
+                            <text>School: <span class="inputs">${internData[i].school}</span></text>
                         </div>
                     </div>
                 </div>
@@ -189,7 +187,9 @@ const mainHTML = () => {
             </header>
             <main>
                 <div class="wrapper">
-    
+                ${managerHTML(manager)}
+                ${engineerHTML(engineers)}
+                ${internsHTML(interns)}
                 </div>
             </main>
         </body>

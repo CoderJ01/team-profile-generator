@@ -220,7 +220,7 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
                 chooseEmployee(managerData, engineerData, internData);
             }
             else {
-                console.log(managerData[1].name);
+    
             }
 
             console.log(managerData);
