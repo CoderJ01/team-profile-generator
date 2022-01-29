@@ -94,8 +94,6 @@ const internHTML = (internDisplay) => {
     return internDisplay;
 }
 
-console.log(internHTML());
-
 const mainHTML = () => {
 
     return `<!DOCTYPE html>
@@ -103,7 +101,7 @@ const mainHTML = () => {
         <head>
             <meta charset="UTF-8" />
             <title>Team Profile</title>
-            <link rel="stylesheet" href=".assets/css/style.css"
+            <link rel="stylesheet" href=".assets/css/style.css">
         </head>
         <body>
             <header>

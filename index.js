@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const mainHTML = require('./src/page-template-html');
 
 var chooseEmployee = (managerData, engineerData, internData) => {
 
@@ -47,7 +48,7 @@ var promptManager = (employee, managerData, engineerData, internData) => {
         {
             type: 'input',
             name: 'officeNumber',
-            message: 'Enter the office number of the manager:',
+            message: 'Enter your office number:',
             validate: officeInput => {
                 if (officeInput) {
                     if (!/^[0-9]+$/.test(officeInput)) {
@@ -80,13 +81,13 @@ var promptEngineer = (employee, managerData, engineerData, internData) => {
         {
             type: 'input',
             name: 'GitHub',
-            message: 'Enter your GitHub username:',
+            message: 'Enter the GitHub username of the engineer:',
             validate: githubInput => {
                 if (githubInput) {
                     return true;
                 }
                 else {
-                    console.log('You need to enter your username');
+                    console.log('You need to enter a username');
                 }
             }
         }
@@ -106,13 +107,13 @@ var promptIntern = (employee, managerData, engineerData, internData) => {
         {
             type: 'input',
             name: 'school',
-            message: 'Enter the name of your school:',
+            message: 'Enter the school that the intern attends:',
             validate: schoolInput => {
                 if (schoolInput) {
                     return true;
                 }
                 else {
-                    console.log('You need to enter the name of your school');
+                    console.log('You need to enter the school of the intern');
                     return false;
                 }
             }
@@ -129,17 +130,32 @@ var promptIntern = (employee, managerData, engineerData, internData) => {
 
 var promptEmployee = (employee, managerData, engineerData, internData, job) => {
 
+    var statement = '';
+    var your = '';
+
+    if (employee === 'Manager') {
+        your = 'your';
+    }
+    if (employee === 'Engineer') {
+        your = 'the';
+        statement = ' of the engineer';
+    }
+    if (employee === 'Intern') {
+        your = 'the';
+        statement = ' of the intern';
+    }
+
     inquirer.prompt([
         {
             type: 'input',
             name: 'name',
-            message: 'Enter your name:',
+            message: `Enter ${your} name${statement}:`,
             validate: nameInput => {
                 if (nameInput) {
                     return true;
                 }
                 else {
-                    console.log('You need to enter your name');
+                    console.log('You need to enter a name');
                     return false;
                 }
             }
@@ -147,7 +163,7 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
         {
             type: 'input',
             name: 'id',
-            message: 'Enter your employee ID number:',
+            message: `Enter ${your} employee ID number${statement}:`,
             validate: idInput => {
                 if (idInput) {
                     if (!/^[0-9]+$/.test(idInput)) {
@@ -167,7 +183,7 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
         {
             type: 'input',
             name: 'email',
-            message: 'Enter your email:',
+            message: `Enter ${your} email${statement}:`,
             validate: emailInput => {
                 if (emailInput) {
                     return true;
