@@ -3,7 +3,6 @@ const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
-// const mainHTML = require('./src/page-template-html');
 const mainCSS = require('./src/page-template-css');
 
 var chooseEmployee = (managerData, engineerData, internData) => {
@@ -238,17 +237,6 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
                 chooseEmployee(managerData, engineerData, internData);
             }
             else {
-
-                // managerHTML(managerData);
-                // engineerHTML(engineerData);
-                // internHTML(internData);
-
-                // const displayHTML = mainHTML();
-                // return managerData;
-
-                // // If displayHTML is commented out, values are defined
-                // console.log(managerData);
-                // console.log('managerData.length: ' + managerData.length);
 
                 fs.writeFile('./dist/index.html', mainHTML(managerData, engineerData, internData), err => {
                     if (err) {
