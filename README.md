@@ -7,7 +7,7 @@ This team profile generator is designed to create a roster for a software compan
  * Node.js
 
 ## Terminal
-![Alt text](./assets/images/image-screenshot.JPG?raw=true "terminal")
+![Alt text](./assets/images/image-screenshot.JPG?raw=true "Roster")
 
 ## Contribution
 Made by CoderJ01

@@ -65,13 +65,12 @@ const mainCSS = () => {
         background-color: rgb(253, 254, 254);
         border: 1px solid rgb(0, 0, 0);
         width: 160px;
-        height: 30px;
         margin-left: 20px;
     }
     .id text, .email text, .wild-card text {
-        position: absolute;
         margin-top: 5px;
         font-weight: bold;
+        word-wrap: break-word;
     }
     .inputs {
         font-size: 10px; 
