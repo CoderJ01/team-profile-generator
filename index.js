@@ -4,7 +4,6 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const fs = require('fs');
 const mainHTML = require('./src/page-template-html');
-const mainCSS = require('./src/page-template-css');
 
 var chooseEmployee = (managerData, engineerData, internData) => {
 
@@ -245,16 +244,7 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
                         throw new Error(err);
                     }
                     else {
-                        const displayCSS = mainCSS();
-
-                        fs.writeFile('./dist/assets/css/style.css', displayCSS, err => {
-                            if (err) {
-                                throw new Error(err);
-                            } 
-                            else {   
-                                console.log('Page created! Check out index.html in this directory to see it!');
-                            }
-                        });
+                        console.log('Page created! Check out index.html in this directory to see it!');
                     }
                 });
             }
