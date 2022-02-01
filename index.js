@@ -5,45 +5,11 @@ const Intern = require('./lib/Intern');
 const fs = require('fs');
 const mainHTML = require('./src/page-template-html');
 
-var chooseEmployee = (managerData, engineerData, internData) => {
+var promptManager = (employee, managerInfo, engineerData, internData) => {
 
-    if (!managerData) {
-        managerData = [];
+    if (!managerInfo) {
+        managerInfo = [];
     }
-    if (!engineerData) {
-        engineerData = [];
-    }
-    if (!internData) {
-        internData = [];
-    }
-   
-    inquirer.prompt([
-        {
-            type: 'list',
-            name: 'employee',
-            message: 'Choose an employee',
-            choices: ['Manager','Engineer', 'Intern']
-        },
-    ])
-    .then(answer => {
-        
-        var employee = answer.employee;
-        
-        if (employee === 'Manager') {
-            promptManager(employee, managerData, engineerData, internData);
-        }
-        if (employee === 'Engineer') {
-            promptEngineer(employee, managerData, engineerData, internData);
-        }
-        if (employee === 'Intern') {
-            promptIntern(employee, managerData, engineerData, internData);
-        }
-    });       
-}
-
-chooseEmployee();
-
-var promptManager = (employee, managerData, engineerData, internData) => {
 
     inquirer.prompt([
         {
@@ -71,12 +37,45 @@ var promptManager = (employee, managerData, engineerData, internData) => {
         if (answer.officeNumber) {
             var officeNum = parseInt(answer.officeNumber);
             var job = officeNum;
-            promptEmployee(employee, managerData, engineerData, internData, job);
+            managerInfo = [job, 'Manager'];
+            promptEmployee(employee, managerInfo, engineerData, internData, job);
         }
     });
 }
 
-var promptEngineer = (employee, managerData, engineerData, internData) => {
+promptManager();
+
+var chooseEmployee = (managerInfo, engineerData, internData) => {
+
+    if (!engineerData) {
+        engineerData = [];
+    }
+    if (!internData) {
+        internData = [];
+    }
+   
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'employee',
+            message: 'Choose an employee',
+            choices: ['Engineer', 'Intern']
+        },
+    ])
+    .then(answer => {
+        
+        var employee = answer.employee;
+
+        if (employee === 'Engineer') {
+            promptEngineer(employee, managerInfo, engineerData, internData);
+        }
+        if (employee === 'Intern') {
+            promptIntern(employee, managerInfo, engineerData, internData);
+        }
+    });       
+}
+
+var promptEngineer = (employee, managerInfo, engineerData, internData) => {
 
     inquirer.prompt([
         {
@@ -97,12 +96,12 @@ var promptEngineer = (employee, managerData, engineerData, internData) => {
         if (answer.GitHub) {
             var gitHub = answer.GitHub;
             var job = gitHub;
-            promptEmployee(employee, managerData, engineerData, internData, job);
+            promptEmployee(employee, managerInfo, engineerData, internData, job);
         }
     });
 }
 
-var promptIntern = (employee, managerData, engineerData, internData, job) => {
+var promptIntern = (employee, managerInfo, engineerData, internData) => {
 
     inquirer.prompt([
         {
@@ -124,12 +123,12 @@ var promptIntern = (employee, managerData, engineerData, internData, job) => {
         if (answer.school) {
             var school = answer.school;
             var job = school;
-            promptEmployee(employee, managerData, engineerData, internData, job);
+            promptEmployee(employee, managerInfo, engineerData, internData, job);
         }
     });
 }
 
-var promptEmployee = (employee, managerData, engineerData, internData, job) => {
+var promptEmployee = (employee, managerInfo, engineerData, internData, job) => {
 
     var statement = '';
     var your = '';
@@ -209,6 +208,8 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
             var id = parseInt(answer.id);
             var email = answer.email.toLowerCase();
 
+            managerInfo.push(name, id, email);
+
             if (employee === 'Manager') {
                 var officeNum = job;
             }
@@ -218,14 +219,24 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
             if (employee === 'Intern') {
                 var school = job;
             }
+
+            var managerData = [];
+
+            managerData[0] = {
+                name: managerInfo[2],
+                id: managerInfo[3],
+                email: managerInfo[4],
+                role: managerInfo[1],
+                officeNum: managerInfo[0]
+            }
   
-            const manager = new Manager(name, id, email, officeNum);
+            // const manager = new Manager(name, id, email, officeNum);
             const engineer = new Engineer(name, id, email, gitHub);
             const intern = new Intern(name, id, email, school);
-
-            if (employee === 'Manager') {
-                managerData.push(manager);
-            }
+    
+            // if (employee === 'Manager') {
+            //     managerData.push(manager);
+            // }
             if (employee === 'Engineer') {
                 engineerData.push(engineer); 
             }
@@ -234,7 +245,7 @@ var promptEmployee = (employee, managerData, engineerData, internData, job) => {
             }
 
             if (answer.confirmAddProject === true) {
-                chooseEmployee(managerData, engineerData, internData);
+                chooseEmployee(managerInfo, engineerData, internData);
             }
             else {
                 const displayHTML = mainHTML(managerData, engineerData, internData);

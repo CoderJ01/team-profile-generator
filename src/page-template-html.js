@@ -2,7 +2,7 @@ const managerHTML = (managerData) => {
     
     var managerDisplay = [];
 
-    for (var i = 0; i < managerData.length; i++) {
+    for (var i = 0; i < 1; i++) {
         managerDisplay[i]= `<!-- Manager -->
         <div class="role">
             <div class="role-display">
@@ -31,67 +31,75 @@ const managerHTML = (managerData) => {
 }
 
 const engineerHTML = (engineerData) => {
-    
-    var engineerDisplay = [];
 
-    for (var i = 0; i < engineerData.length; i++) {
-        engineerDisplay[i]= `<!-- Engineer -->
-        <div class="role">
-            <div class="role-display">
-                <div class="basic">
-                    <h2>${engineerData[i].name}</h2>
-                    <h3>${engineerData[i].role}</h3>
-                </div>
-                <div class="specific">
-                    <div class="specific-wrapper">
-                        <div class="id">
-                            <text>ID: <span class="input-num">${engineerData[i].id}</span></text></text>
-                        </div>
-                        <div class="email">
-                            <text>Email: <span class="inputs"><a href="mailto: ${engineerData[i].email}">${engineerData[i].email}</a></span></text>
-                        </div>
-                        <div class="wild-card">
-                            <text>GitHub: <span class="inputs"><a href="https://github.com/${engineerData[i].gitHub}" target="_blank" rel="noopener noreferrer">${engineerData[i].gitHub}<a></span></text>
+    if (engineerData) {
+        var engineerDisplay = [];
+
+        for (var i = 0; i < engineerData.length; i++) {
+            engineerDisplay[i]= `<!-- Engineer -->
+            <div class="role">
+                <div class="role-display">
+                    <div class="basic">
+                        <h2>${engineerData[i].name}</h2>
+                        <h3>${engineerData[i].role}</h3>
+                    </div>
+                    <div class="specific">
+                        <div class="specific-wrapper">
+                            <div class="id">
+                                <text>ID: <span class="input-num">${engineerData[i].id}</span></text></text>
+                            </div>
+                            <div class="email">
+                                <text>Email: <span class="inputs"><a href="mailto: ${engineerData[i].email}">${engineerData[i].email}</a></span></text>
+                            </div>
+                            <div class="wild-card">
+                                <text>GitHub: <span class="inputs"><a href="https://github.com/${engineerData[i].gitHub}" target="_blank" rel="noopener noreferrer">${engineerData[i].gitHub}<a></span></text>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>`;
+            </div>`;
+        }
+        return engineerDisplay;
     }
-
-    return engineerDisplay;
+    else {
+        return '';
+    }   
 }
 
 const internHTML = (internData) => {
-    
-    var internDisplay = [];
 
-    for (var i = 0; i < internData.length; i++) {
-        internDisplay[i]= ` <!-- Intern -->
-        <div class="role">
-            <div class="role-display">
-                <div class="basic">
-                    <h2>${internData[i].name}</h2>
-                    <h3>${internData[i].role}</h3>
-                </div>
-                <div class="specific">
-                    <div class="specific-wrapper">
-                        <div class="id">
-                            <text>ID: <span class="input-num">${internData[i].id}</span></text></text>
-                        </div>
-                        <div class="email">
-                            <text>Email: <span class="inputs"><a href="mailto: ${internData[i].email}">${internData[i].email}</a></span></text>
-                        </div>
-                        <div class="wild-card">
-                            <text>School: <span class="inputs">${internData[i].school}</span></text>
+    if(internData) {
+        var internDisplay = [];
+
+        for (var i = 0; i < internData.length; i++) {
+            internDisplay[i]= ` <!-- Intern -->
+            <div class="role">
+                <div class="role-display">
+                    <div class="basic">
+                        <h2>${internData[i].name}</h2>
+                        <h3>${internData[i].role}</h3>
+                    </div>
+                    <div class="specific">
+                        <div class="specific-wrapper">
+                            <div class="id">
+                                <text>ID: <span class="input-num">${internData[i].id}</span></text></text>
+                            </div>
+                            <div class="email">
+                                <text>Email: <span class="inputs"><a href="mailto: ${internData[i].email}">${internData[i].email}</a></span></text>
+                            </div>
+                            <div class="wild-card">
+                                <text>School: <span class="inputs">${internData[i].school}</span></text>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>`;
+            </div>`;
+        }
+        return internDisplay;
     }
-
-    return internDisplay;
+    else {
+        return '';
+    }
 }
 
 const mainHTML = (managerData, engineerData, internData) => {
