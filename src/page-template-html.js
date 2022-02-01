@@ -2,30 +2,28 @@ const managerHTML = (managerData) => {
     
     var managerDisplay = [];
 
-    for (var i = 0; i < 1; i++) {
-        managerDisplay[i]= `<!-- Manager -->
+    managerDisplay = `<!-- Manager -->
         <div class="role">
             <div class="role-display">
                 <div class="basic">
-                    <h2>${managerData[i].name}</h2>
-                    <h3>${managerData[i].role}</h3>
+                    <h2>${managerData[0].name}</h2>
+                    <h3>${managerData[0].role}</h3>
                 </div>
                 <div class="specific">
                     <div class="specific-wrapper">
                         <div class="id">
-                            <text>ID: <span class="input-num">${managerData[i].id}</span></text></text>
+                            <text>ID: <span class="input-num">${managerData[0].id}</span></text></text>
                         </div>
                         <div class="email">
-                            <text>Email: <span class="inputs"><a href="mailto: ${managerData[i].email}">${managerData[i].email}</a></span></text>
+                            <text>Email: <span class="inputs"><a href="mailto: ${managerData[0].email}">${managerData[0].email}</a></span></text>
                         </div>
                         <div class="wild-card">
-                            <text>Office Number: <span class="input-num">${managerData[i].officeNum}</span></text>
+                            <text>Office Number: <span class="input-num">${managerData[0].officeNum}</span></text>
                         </div>
                     </div>
                 </div>
             </div>
         </div>`;
-    }
 
     return managerDisplay;
 }

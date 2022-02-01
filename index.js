@@ -5,7 +5,11 @@ const Intern = require('./lib/Intern');
 const fs = require('fs');
 const mainHTML = require('./src/page-template-html');
 
-var promptManager = (employee, managerInfo, engineerData, internData) => {
+var promptManager = (employee, managerInfo, managerData, engineerData, internData) => {
+
+    if (!managerData) {
+        managerData = [];
+    }
 
     if (!managerInfo) {
         managerInfo = [];
@@ -15,7 +19,7 @@ var promptManager = (employee, managerInfo, engineerData, internData) => {
         {
             type: 'input',
             name: 'officeNumber',
-            message: 'Enter your office number:',
+            message: 'Manager, enter your office number:',
             validate: officeInput => {
                 if (officeInput) {
                     if (!/^[0-9]+$/.test(officeInput)) {
@@ -38,14 +42,14 @@ var promptManager = (employee, managerInfo, engineerData, internData) => {
             var officeNum = parseInt(answer.officeNumber);
             var job = officeNum;
             managerInfo = [job, 'Manager'];
-            promptEmployee(employee, managerInfo, engineerData, internData, job);
+            promptEmployee(employee, managerInfo, managerData, engineerData, internData, job);
         }
     });
 }
 
 promptManager();
 
-var chooseEmployee = (managerInfo, engineerData, internData) => {
+var chooseEmployee = (employee, managerInfo, managerData, engineerData, internData) => {
 
     if (!engineerData) {
         engineerData = [];
@@ -64,18 +68,18 @@ var chooseEmployee = (managerInfo, engineerData, internData) => {
     ])
     .then(answer => {
         
-        var employee = answer.employee;
+        employee = answer.employee;
 
         if (employee === 'Engineer') {
-            promptEngineer(employee, managerInfo, engineerData, internData);
+            promptEngineer(employee, managerInfo, managerData, engineerData, internData);
         }
         if (employee === 'Intern') {
-            promptIntern(employee, managerInfo, engineerData, internData);
+            promptIntern(employee, managerInfo, managerData, engineerData, internData);
         }
     });       
 }
 
-var promptEngineer = (employee, managerInfo, engineerData, internData) => {
+var promptEngineer = (employee, managerInfo, managerData, engineerData, internData) => {
 
     inquirer.prompt([
         {
@@ -96,12 +100,12 @@ var promptEngineer = (employee, managerInfo, engineerData, internData) => {
         if (answer.GitHub) {
             var gitHub = answer.GitHub;
             var job = gitHub;
-            promptEmployee(employee, managerInfo, engineerData, internData, job);
+            promptEmployee(employee, managerInfo, managerData, engineerData, internData, job);
         }
     });
 }
 
-var promptIntern = (employee, managerInfo, engineerData, internData) => {
+var promptIntern = (employee, managerInfo, managerData, engineerData, internData) => {
 
     inquirer.prompt([
         {
@@ -123,17 +127,17 @@ var promptIntern = (employee, managerInfo, engineerData, internData) => {
         if (answer.school) {
             var school = answer.school;
             var job = school;
-            promptEmployee(employee, managerInfo, engineerData, internData, job);
+            promptEmployee(employee, managerInfo, managerData, engineerData, internData, job);
         }
     });
 }
 
-var promptEmployee = (employee, managerInfo, engineerData, internData, job) => {
+var promptEmployee = (employee, managerInfo, managerData, engineerData, internData, job) => {
 
     var statement = '';
     var your = '';
 
-    if (employee === 'Manager') {
+    if (employee !== 'Engineer' && employee !== 'Intern') {
         your = 'your';
     }
     if (employee === 'Engineer') {
@@ -210,8 +214,11 @@ var promptEmployee = (employee, managerInfo, engineerData, internData, job) => {
 
             managerInfo.push(name, id, email);
 
-            if (employee === 'Manager') {
-                var officeNum = job;
+            if (employee !== 'Engineer' && employee !== 'Intern') {
+                var officeNum = parseInt(managerInfo[0]);
+                name = managerInfo[2].substring(0, 1).toUpperCase() + answer.name.substring(1);
+                id = parseInt(managerInfo[3]);
+                email = managerInfo[4].toLowerCase();
             }
             if (employee === 'Engineer') {
                 var gitHub = job;
@@ -220,23 +227,19 @@ var promptEmployee = (employee, managerInfo, engineerData, internData, job) => {
                 var school = job;
             }
 
-            var managerData = [];
-
-            managerData[0] = {
-                name: managerInfo[2],
-                id: managerInfo[3],
-                email: managerInfo[4],
-                role: managerInfo[1],
-                officeNum: managerInfo[0]
+            if (officeNum === undefined) {
+                officeNum = 0;
             }
   
-            // const manager = new Manager(name, id, email, officeNum);
+            const manager = new Manager(name, id, email, officeNum);
             const engineer = new Engineer(name, id, email, gitHub);
             const intern = new Intern(name, id, email, school);
     
-            // if (employee === 'Manager') {
-            //     managerData.push(manager);
-            // }
+            if (employee !== 'Engineer' && employee !== 'Intern') {
+                if (managerData.length < 1) {
+                    managerData.push(manager);
+                }
+            }
             if (employee === 'Engineer') {
                 engineerData.push(engineer); 
             }
@@ -244,8 +247,11 @@ var promptEmployee = (employee, managerInfo, engineerData, internData, job) => {
                 internData.push(intern);
             }
 
+            console.log(manager);
+            console.log(managerData);
+
             if (answer.confirmAddProject === true) {
-                chooseEmployee(managerInfo, engineerData, internData);
+                chooseEmployee(employee, managerInfo, managerData, engineerData, internData);
             }
             else {
                 const displayHTML = mainHTML(managerData, engineerData, internData);
