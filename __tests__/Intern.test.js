@@ -1,3 +1,4 @@
+// test parameter for Intern specifically
 const Intern = require('../lib/Intern.js');
 
 describe('Intern', () => {

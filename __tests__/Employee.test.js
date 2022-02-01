@@ -1,3 +1,4 @@
+// Test parameters for all employees
 const Employee = require('../lib/Employee.js');
 
 describe('Employee', () => {

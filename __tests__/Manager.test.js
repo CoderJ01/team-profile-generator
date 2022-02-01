@@ -1,3 +1,4 @@
+// test parameter for Manager specifically
 const Manager = require('../lib/Manager.js');
 
 describe('Manager', () => {

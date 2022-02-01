@@ -5,14 +5,18 @@ const Intern = require('./lib/Intern');
 const fs = require('fs');
 const mainHTML = require('./src/page-template-html');
 
+// prompt the magager for his information (office number)
 var promptManager = (employee, managerInfo, managerData, engineerData, internData) => {
 
-    if (!managerData) {
-        managerData = [];
-    }
-
+    // manager information will be stored here
     if (!managerInfo) {
         managerInfo = [];
+    }
+
+    // after manager info is stored in 'managerInfo,' 
+    // the info will be re-ordered in managerData
+    if (!managerData) {
+        managerData = [];
     }
 
     inquirer.prompt([
@@ -51,9 +55,12 @@ promptManager();
 
 var chooseEmployee = (employee, managerInfo, managerData, engineerData, internData) => {
 
+    // engineer info will be stored here
     if (!engineerData) {
         engineerData = [];
     }
+
+    // intern info will be stored here
     if (!internData) {
         internData = [];
     }
@@ -79,6 +86,7 @@ var chooseEmployee = (employee, managerInfo, managerData, engineerData, internDa
     });       
 }
 
+// prompt engineer for gitHub username
 var promptEngineer = (employee, managerInfo, managerData, engineerData, internData) => {
 
     inquirer.prompt([
@@ -105,6 +113,7 @@ var promptEngineer = (employee, managerInfo, managerData, engineerData, internDa
     });
 }
 
+// prompt intern for school name
 var promptIntern = (employee, managerInfo, managerData, engineerData, internData) => {
 
     inquirer.prompt([
@@ -132,6 +141,7 @@ var promptIntern = (employee, managerInfo, managerData, engineerData, internData
     });
 }
 
+// prompt all employees for their names, email, and ids
 var promptEmployee = (employee, managerInfo, managerData, engineerData, internData, job) => {
 
     var statement = '';
@@ -208,13 +218,17 @@ var promptEmployee = (employee, managerInfo, managerData, engineerData, internDa
     .then(
         answer => {
 
+            // name. email, and id will be used in class-based new Arrays
             var name = answer.name.substring(0, 1).toUpperCase() + answer.name.substring(1);
             var id = parseInt(answer.id);
             var email = answer.email.toLowerCase();
 
+            // variables will be pushed to managerInfo array
             managerInfo.push(name, id, email);
 
             if (employee !== 'Engineer' && employee !== 'Intern') {
+                // class-based parameters will be set equal to managerInfo 
+                // values
                 var officeNum = parseInt(managerInfo[0]);
                 name = managerInfo[2].substring(0, 1).toUpperCase() + answer.name.substring(1);
                 id = parseInt(managerInfo[3]);
@@ -231,11 +245,14 @@ var promptEmployee = (employee, managerInfo, managerData, engineerData, internDa
                 officeNum = 0;
             }
   
+            // use sub-classes to set new arrays (all classes pass the tests)
             const manager = new Manager(name, id, email, officeNum);
             const engineer = new Engineer(name, id, email, gitHub);
             const intern = new Intern(name, id, email, school);
     
+            // push consts (manager, engineer, intern) to arrays declared above
             if (employee !== 'Engineer' && employee !== 'Intern') {
+                // if manager.length is >= 1, then system malfunctions
                 if (managerData.length < 1) {
                     managerData.push(manager);
                 }
@@ -247,13 +264,12 @@ var promptEmployee = (employee, managerInfo, managerData, engineerData, internDa
                 internData.push(intern);
             }
 
-            console.log(manager);
-            console.log(managerData);
-
+            // pass on stored values if user wants to add another employee
             if (answer.confirmAddProject === true) {
                 chooseEmployee(employee, managerInfo, managerData, engineerData, internData);
             }
             else {
+                // if user is done adding employyes, create the html page
                 const displayHTML = mainHTML(managerData, engineerData, internData);
 
                 fs.writeFile('./dist/index.html', displayHTML, err => {

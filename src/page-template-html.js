@@ -1,3 +1,6 @@
+// template for team roster
+
+// creates manager information display box
 const managerHTML = (managerData) => {
     
     var managerDisplay = [];
@@ -28,11 +31,13 @@ const managerHTML = (managerData) => {
     return managerDisplay;
 }
 
+// creates enginneer information display box(es)
 const engineerHTML = (engineerData) => {
 
     if (engineerData) {
         var engineerDisplay = [];
 
+        // allows manager to display more than one engineer
         for (var i = 0; i < engineerData.length; i++) {
             engineerDisplay[i]= `<!-- Engineer -->
             <div class="role">
@@ -60,15 +65,17 @@ const engineerHTML = (engineerData) => {
         return engineerDisplay;
     }
     else {
-        return '';
+        return ''; // prevents undefined from being display on HTML
     }   
 }
 
+// creates intern information display box(es)
 const internHTML = (internData) => {
 
     if(internData) {
         var internDisplay = [];
 
+         // // allows manager to display more than one intern
         for (var i = 0; i < internData.length; i++) {
             internDisplay[i]= ` <!-- Intern -->
             <div class="role">
@@ -125,3 +132,7 @@ const mainHTML = (managerData, engineerData, internData) => {
 }
 
 module.exports = mainHTML;
+
+// NOTE: Being static, the CSS does not need a template. A static style.css file
+// is provided to be linked to the html once the manager creatstes the page
+// ./dist/assets/css/style.css
