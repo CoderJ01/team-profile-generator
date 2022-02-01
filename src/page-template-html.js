@@ -133,6 +133,6 @@ const mainHTML = (managerData, engineerData, internData) => {
 
 module.exports = mainHTML;
 
-// NOTE: Being static, the CSS does not need a template. A static style.css file
-// is provided to be linked to the html once the manager creatstes the page
+// NOTE: Being static, the CSS does not need a javascript-based template. A static style.css file
+// is provided to be linked to the dynamic html output once the manager creatstes the page
 // ./dist/assets/css/style.css
