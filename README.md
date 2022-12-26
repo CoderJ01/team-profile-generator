@@ -10,7 +10,7 @@ This team profile generator is designed to create a roster for a software compan
 ![Alt text](./assets/images/image-screenshot.JPG?raw=true "Roster")
 
 ## Walkthrough
-[Video](https://github.com/CoderJ01/team-profile-generator/tree/main/assets/videos)
+[Video](https://youtu.be/1hc-mP6GmKc)
 
 ## Contribution
 Made by CoderJ01
